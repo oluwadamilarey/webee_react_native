@@ -36,9 +36,10 @@ export const updateField =
 
 export const loadCategory = () => async (dispatch: any) => {
   try {
-    const categories = await AsyncStorage.getItem('@category');
-    if (categories !== null) {
-      dispatch({type: 'LOAD_CATEGORY', payload: JSON.parse(categories)});
+    const categoriesJson = await AsyncStorage.getItem('@categories');
+    if (categoriesJson !== null) {
+      const categories = JSON.parse(categoriesJson);
+      dispatch({type: LOAD_CATEGORY, payload: categories});
     }
   } catch (error) {
     console.log('Error loading categories:', error);

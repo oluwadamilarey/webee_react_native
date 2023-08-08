@@ -1,4 +1,4 @@
-import {View, Text, ScrollView, FlatList, Button} from 'react-native';
+import {View, FlatList, Button, StyleSheet} from 'react-native';
 import React, {useEffect} from 'react';
 import CategoryForm from '../components/category.component';
 import {useDispatch, useSelector} from 'react-redux';
@@ -26,10 +26,25 @@ const CategoryScreen = ({navigation}: {navigation: any}) => {
 
       {/* <CategoryForm />
       <CategoryForm /> */}
-      <Button title="Open Drawer" onPress={() => navigation.openDrawer()} />
-      <Button title="Add new category" onPress={handleAddCategory} />
+      <View style={styles.add_category_button}>
+        <Button
+          title="Add new category"
+          onPress={handleAddCategory}
+          color={'white'}
+        />
+      </View>
     </>
   );
 };
 
 export default CategoryScreen;
+
+const styles = StyleSheet.create({
+  add_category_button: {
+    padding: 10,
+    backgroundColor: '#35bbe0',
+    marginHorizontal: 10,
+    borderWidth: 0.3,
+    borderRaduis: 5,
+  },
+});

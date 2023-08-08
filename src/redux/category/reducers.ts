@@ -6,10 +6,11 @@ import {
   DELETE_CATEGORY,
   LOAD_CATEGORY,
   UPDATE_FIELD,
+  DELETE_CATEGORY_FIELD,
 } from './actions';
 
 interface CategoryState {
-  categories: Category[];
+  categories: [];
 }
 
 const initialState: CategoryState = {
@@ -39,6 +40,12 @@ export const categoryReducer = (state = initialState, action: any) => {
         categories: action.payload,
       };
     case DELETE_CATEGORY:
+      return {
+        ...state,
+        categories: action.payload,
+      };
+
+    case DELETE_CATEGORY_FIELD:
       return {
         ...state,
         categories: action.payload,

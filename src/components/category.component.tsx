@@ -9,6 +9,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {
   addCategoryField,
   deleteCategory,
+  deleteCategoryField,
   updateField,
 } from '../redux/category/actions';
 import {Field, FieldType} from '../redux/types';
@@ -53,6 +54,10 @@ const CategoryForm: React.FC<CategoryFormProps> = (props: any) => {
     dispatch(updateField(props.category.id, fieldIndex, newTitle));
   };
 
+  const handleDeleteField = (fieldIndex: number) => {
+    dispatch(deleteCategoryField(props.category.id, fieldIndex));
+  };
+
   const handleTypeChange = (newType: any) => {
     setSelectedType(newType);
   };
@@ -69,11 +74,12 @@ const CategoryForm: React.FC<CategoryFormProps> = (props: any) => {
             name={item.name}
             type={item.type}
             changeText={title => handleFieldTitleChange(index, title)}
+            handleDelete={handleDeleteField(index)}
           />
         )}
       />
       <View style={styles.title_field_model}>
-        <Text>Title Field: {title}</Text>
+        <Text style={styles.title_field_model_text}>Title Field: {title}</Text>
       </View>
       <View style={styles.action_section}>
         <View>
@@ -93,6 +99,12 @@ const CategoryForm: React.FC<CategoryFormProps> = (props: any) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginHorizontal: 5,
+    borderWidth: 0.6,
+    padding: 10,
+    marginVertical: 15,
+    borderColor: '#15465f',
+    borderRadius: 2,
   },
   delete_button: {
     marginHorizontal: 30,
@@ -100,6 +112,7 @@ const styles = StyleSheet.create({
   },
   category_title: {
     marginVertical: 15,
+    fontSize: 17,
   },
   form_container: {
     flex: 1,
@@ -119,14 +132,19 @@ const styles = StyleSheet.create({
   },
   title_field_model: {
     flex: 1,
-    backgroundColor: 'pink',
+    backgroundColor: '#5B5CDE',
     alignItems: 'center',
     padding: 10,
     marginHorizontal: 15,
     marginVertical: 15,
+    barderRadius: 3,
+    borderWidth: 0.5,
   },
   action_section: {
     flexDirection: 'row',
+  },
+  title_field_model_text: {
+    color: 'white',
   },
 });
 
