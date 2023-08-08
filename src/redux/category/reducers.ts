@@ -5,6 +5,7 @@ import {
   ADD_FIELD,
   DELETE_CATEGORY,
   LOAD_CATEGORY,
+  UPDATE_FIELD,
 } from './actions';
 
 interface CategoryState {
@@ -28,6 +29,11 @@ export const categoryReducer = (state = initialState, action: any) => {
         categories: action.payload,
       };
     case ADD_FIELD:
+      return {
+        ...state,
+        categories: action.payload,
+      };
+    case UPDATE_FIELD:
       return {
         ...state,
         categories: action.payload,

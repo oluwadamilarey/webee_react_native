@@ -2,13 +2,11 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import InputField from './input-component';
 
-interface CategoryFieldProps {
+interface TitleFieldProps {
   changeText: (newTitle: string) => void;
-  type: any;
-  name: any;
 }
 
-const CategoryField: React.FC<CategoryFieldProps> = props => {
+const TitleField: React.FC<TitleFieldProps> = props => {
   const handleChangeText = (newTitle: string) => {
     props.changeText(newTitle);
   };
@@ -18,14 +16,7 @@ const CategoryField: React.FC<CategoryFieldProps> = props => {
       <View style={styles.form_container}>
         <View style={styles.field_container}>
           <View style={styles.input_container}>
-            <InputField label="field" onChangeText={handleChangeText} />
-          </View>
-
-          <View style={styles.field_type_container}>
-            <Text>{props.type}</Text>
-          </View>
-          <View style={styles.delete_button}>
-            <Text>X</Text>
+            <InputField label="Text" onChangeText={handleChangeText} />
           </View>
         </View>
       </View>
@@ -62,4 +53,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CategoryField;
+export default TitleField;

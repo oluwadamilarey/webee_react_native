@@ -1,22 +1,31 @@
 import {SelectList} from 'react-native-dropdown-select-list';
 import React from 'react';
-
-const AppPicker = () => {
+import {Field, FieldType} from '../redux/types';
+interface AppPickerProps {
+  onTypeChange: (newType: any) => void;
+  handleChange: () => void;
+}
+const AppPicker: React.FC<AppPickerProps> = props => {
   const [selected, setSelected] = React.useState('');
 
-  const data = [
-    {key: '1', value: 'Text'},
-    {key: '2', value: 'CheckBox'},
-    {key: '3', value: 'Date'},
-    {key: '4', value: 'Number'},
-  ];
+  const fieldTypeOptions = {
+    string: 'String',
+    number: 'Number',
+    Date: 'Date',
+    boolean: 'Boolean',
+  } as const; //readonly mapping
 
+  const data = Object.keys(fieldTypeOptions).map(key => ({
+    key,
+    value: fieldTypeOptions[key as keyof typeof fieldTypeOptions],
+  }));
   return (
     <SelectList
-      setSelected={(val: any) => setSelected(val)}
+      setSelected={(val: any) => props.onTypeChange(val)}
       data={data}
       save="value"
       search={false}
+      onSelect={props.handleChange}
     />
   );
 };

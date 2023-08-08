@@ -1,4 +1,3 @@
-import {TextField} from '@material-ui/core';
 import React, {useEffect, useRef, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import CategoryField from './category-field.component';
@@ -7,7 +6,14 @@ import DropdownPicker from './picker.component';
 import AppPicker from './picker.component';
 
 import {useDispatch, useSelector} from 'react-redux';
-import {addCategoryField, deleteCategory} from '../redux/category/actions';
+import {
+  addCategoryField,
+  deleteCategory,
+  updateField,
+} from '../redux/category/actions';
+import {Field, FieldType} from '../redux/types';
+import {FlatList} from 'react-native-gesture-handler';
+import TitleField from './title-field.component';
 
 interface Category {
   id: number;
@@ -31,19 +37,50 @@ const CategoryForm: React.FC<CategoryFormProps> = (props: any) => {
     console.log('delete category', props.category);
     dispatch(deleteCategory(props.category.id));
   };
+  const [selectedType, setSelectedType] = useState(); // Default type is Text
 
+  const handleAddField = () => {
+    const newField: Field = {
+      name: 'New Field',
+      type: selectedType as unknown,
+    };
+
+    dispatch(addCategoryField(props.category.id, newField));
+    console.log(props.category.fields);
+  };
+
+  const handleFieldTitleChange = (fieldIndex: number, newTitle: string) => {
+    dispatch(updateField(props.category.id, fieldIndex, newTitle));
+  };
+
+  const handleTypeChange = (newType: any) => {
+    setSelectedType(newType);
+  };
   return (
     <View style={styles.container}>
       <Text style={styles.category_title}>{title}</Text>
       <View>
-        <CategoryField changeText={handleTitleChange} />
+        <TitleField changeText={handleTitleChange} />
       </View>
+      <FlatList
+        data={props.category.fields}
+        renderItem={({item, index}) => (
+          <CategoryField
+            name={item.name}
+            type={item.type}
+            changeText={title => handleFieldTitleChange(index, title)}
+          />
+        )}
+      />
       <View style={styles.title_field_model}>
         <Text>Title Field: {title}</Text>
       </View>
       <View style={styles.action_section}>
         <View>
-          <AppPicker />
+          <AppPicker
+            onTypeChange={handleTypeChange}
+            handleChange={handleAddField}
+          />
         </View>
         <View>
           <AppButton label="Remove" onPress={handleDelete} />
@@ -94,6 +131,3 @@ const styles = StyleSheet.create({
 });
 
 export default CategoryForm;
-function dispatch(arg0: any) {
-  throw new Error('Function not implemented.');
-}
