@@ -1,13 +1,18 @@
 import React from 'react';
 import TitleField from './title-field.component';
 import InputField from './input-component';
-import {View} from 'react-native-reanimated/lib/typescript/Animated';
+import {Text, View} from 'react-native';
 
-const MachineForm = () => {
+const MachineForm = ({category}: any) => {
   return (
     <>
-      <InputField label="Text" />
-      <InputField label="Text" />
+      <TitleField changeText={newTitle => {}} />
+      {category.fields.map((field: any, index: any) => (
+        <View key={index}>
+          <Text>{field.name}</Text>
+          {field.type === 'Text' && <InputField label="Text" />}
+        </View>
+      ))}
     </>
   );
 };

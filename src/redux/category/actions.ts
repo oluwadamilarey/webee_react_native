@@ -56,7 +56,7 @@ export const deleteCategory =
       await AsyncStorage.setItem(
         '@categories',
         JSON.stringify(updatedCategories),
-      ); // Serialize the data
+      );
     } catch (error) {
       console.log('Error deleting category:', error);
     }

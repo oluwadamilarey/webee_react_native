@@ -5,6 +5,7 @@ import MachineForm from '../components/machine.component';
 const Machine = () => {
   return (
     <View>
+      <Text>Create Machine</Text>
       <MachineForm />
     </View>
   );

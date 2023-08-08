@@ -1,5 +1,3 @@
-import {Category} from '../types';
-import {addCategory, addCategoryField, loadCategory} from './actions';
 import {
   ADD_CATEGORY,
   ADD_FIELD,

@@ -2,7 +2,6 @@ import React, {useEffect, useRef, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import CategoryField from './category-field.component';
 import AppButton from './button.component';
-import DropdownPicker from './picker.component';
 import AppPicker from './picker.component';
 
 import {useDispatch, useSelector} from 'react-redux';
@@ -19,7 +18,7 @@ import TitleField from './title-field.component';
 interface Category {
   id: number;
   name: string;
-  fields: any[]; // Adjust the type if needed
+  fields: any[];
 }
 
 interface CategoryFormProps {

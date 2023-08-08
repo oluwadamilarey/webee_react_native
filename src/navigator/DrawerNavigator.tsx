@@ -19,8 +19,7 @@ const DrawerNavigator = () => {
     <NavigationContainer>
       <Drawer.Navigator>
         <Drawer.Screen name="Category" component={CategoryScreen} />
-
-        <Drawer.Screen name="Machinr" component={Machine} />
+        <Drawer.Screen name="Machine" component={Machine} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
