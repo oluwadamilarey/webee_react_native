@@ -7,7 +7,7 @@ const MachineForm = ({category}: any) => {
   return (
     <>
       <TitleField changeText={newTitle => {}} />
-      {category.fields.map((field: any, index: any) => (
+      {category.map((field: any, index: any) => (
         <View key={index}>
           <Text>{field.name}</Text>
           {field.type === 'Text' && <InputField label="Text" />}
