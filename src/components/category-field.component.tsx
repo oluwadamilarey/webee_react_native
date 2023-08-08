@@ -2,13 +2,20 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import InputField from './input-component';
 
-const CategoryField = () => {
+interface CategoryFieldProps {
+  changeText: (newTitle: string) => void;
+}
+
+const CategoryField: React.FC<CategoryFieldProps> = props => {
+  const handleChangeText = (newTitle: string) => {
+    props.changeText(newTitle);
+  };
   return (
     <>
       <View style={styles.form_container}>
         <View style={styles.field_container}>
           <View style={styles.input_container}>
-            <InputField label="Text" />
+            <InputField label="Text" onChangeText={handleChangeText} />
           </View>
 
           <View style={styles.field_type_container}>

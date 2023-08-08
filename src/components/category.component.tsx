@@ -6,22 +6,47 @@ import AppButton from './button.component';
 import DropdownPicker from './picker.component';
 import AppPicker from './picker.component';
 
-const CategoryForm: React.FC = () => {
+import {useDispatch, useSelector} from 'react-redux';
+import {addCategoryField, deleteCategory} from '../redux/category/actions';
+
+interface Category {
+  id: number;
+  name: string;
+  fields: any[]; // Adjust the type if needed
+}
+
+interface CategoryFormProps {
+  category: Category;
+}
+
+const CategoryForm: React.FC<CategoryFormProps> = (props: any) => {
+  const [title, setTitle] = useState(props.category.name); // Dynamic title state
+
+  const handleTitleChange = (newTitle: string) => {
+    setTitle(newTitle);
+    //dispatch(updateCategoryTitle(props.category.id, newTitle));
+  };
+  const dispatch = useDispatch() as any;
+  const handleDelete = () => {
+    console.log('delete category', props.category);
+    dispatch(deleteCategory(props.category.id));
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.category_title}>Title of Category</Text>
+      <Text style={styles.category_title}>{title}</Text>
       <View>
-        <CategoryField />
+        <CategoryField changeText={handleTitleChange} />
       </View>
       <View style={styles.title_field_model}>
-        <Text>Title Field: Model</Text>
+        <Text>Title Field: {title}</Text>
       </View>
       <View style={styles.action_section}>
         <View>
           <AppPicker />
         </View>
         <View>
-          <AppButton label="Remove" />
+          <AppButton label="Remove" onPress={handleDelete} />
         </View>
       </View>
     </View>
@@ -69,3 +94,6 @@ const styles = StyleSheet.create({
 });
 
 export default CategoryForm;
+function dispatch(arg0: any) {
+  throw new Error('Function not implemented.');
+}

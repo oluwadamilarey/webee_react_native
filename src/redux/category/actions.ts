@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export const ADD_CATEGORY = 'ADD_CATEGORY';
 export const DELETE_CATEGORY = 'DELETE_CATEGORY';
 export const ADD_FIELD = 'ADD_FIELD';
+export const LOAD_CATEGORY = 'LOAD_CATEGORY';
 
 // export const addCategory = (text?: string) => ({
 //   type: ADD_CATEGORY,
@@ -30,6 +31,22 @@ export const loadCategory = () => async (dispatch: any) => {
   }
 };
 
+export const deleteCategory =
+  (categoryId: number) => async (dispatch: any, getState: any) => {
+    try {
+      const updatedCategories = getState().categories.categories.filter(
+        (category: Category) => category.id !== categoryId,
+      );
+      dispatch({type: DELETE_CATEGORY, payload: updatedCategories});
+      await AsyncStorage.setItem(
+        '@categories',
+        JSON.stringify(updatedCategories),
+      ); // Serialize the data
+    } catch (error) {
+      console.log('Error deleting category:', error);
+    }
+  };
+
 export const addCategory =
   (text?: string) => async (dispatch: any, getState: any) => {
     try {
@@ -38,12 +55,18 @@ export const addCategory =
         name: text ? text : 'new category',
         fields: [],
       };
-      console.log(getState().categories);
 
-      const newCategory = [...getState().categories, category];
+      // Get the existing categories from AsyncStorage and parse them as JSON
+      const existingCategories = await AsyncStorage.getItem('@categories');
+      const parsedCategories = existingCategories
+        ? JSON.parse(existingCategories)
+        : [];
 
-      dispatch({type: ADD_CATEGORY, payload: newCategory});
-      await AsyncStorage.setItem('@categories', JSON.stringify(newCategory));
+      const ct = parsedCategories;
+      const newCategories = [...ct, category];
+
+      dispatch({type: ADD_CATEGORY, payload: newCategories});
+      await AsyncStorage.setItem('@categories', JSON.stringify(newCategories));
     } catch (error) {
       console.log('Error adding newCategory:', error);
     }

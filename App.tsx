@@ -24,6 +24,7 @@ import CategoryForm from './src/components/category.component';
 import {Provider} from 'react-redux';
 import store from './src/store';
 import CategoryScreen from './src/screens/category.screen';
+import DrawerNavigator from './src/navigator/DrawerNavigator';
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -36,7 +37,7 @@ const App = () => {
     <>
       <Provider store={store}>
         <SafeAreaView style={backgroundStyle}>
-          <CategoryScreen />
+          <DrawerNavigator />
         </SafeAreaView>
       </Provider>
     </>
